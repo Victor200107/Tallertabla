@@ -1,0 +1,145 @@
+<div class="container mt-5">
+
+<form [formGroup]="form" (ngSubmit)="agregarPersona()">
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="form-group">
+                <label for="cedula">Cédula:</label>
+                <input type="number" formControlName="cedula"  class="form-control form-control-lg"  maxlength="10" minlength="10" required pattern="[0-9]+">
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="form-group">
+                <label for="nombre">Nombres:</label>
+                <input type="text" formControlName="nombre" class="form-control form-control-lg"  >
+
+            </div>
+        </div>
+
+        <div class="col-lg-3">
+            <div class="form-group">
+                <label for="nombre">Apellidos:</label>
+                <input type="text" formControlName="apellido"  class="form-control form-control-lg" >
+
+            </div>
+        </div>
+
+
+
+        <div class="col-lg-3">
+            <div class="form-group">
+                <label for="asignatura" >Asignatura: </label>
+                <input type="text" formControlName="asignatura"  class="form-control form-control-lg" id="asignatura">
+
+            </div>
+        </div>
+
+        <div class="col-lg-3">
+          <div class="form-group">
+              <label for="nota1" >Nota1 :</label>
+              <input type="number" formControlName="nota1" class="form-control form-control-lg" id="nota1">
+          </div>
+        </div>
+
+        <div class="col-lg-3">
+          <div class="form-group">
+              <label for="nota2" >Nota 2:</label>
+              <input type="number" formControlName="nota2" class="form-control form-control-lg" id="nota2">
+          </div>
+        </div>
+
+
+        <div class="col-lg-3">
+            <div class="form-group mt-4">
+                <button [disabled]="form.invalid" type="submit" class="btn btn-primary btn-lg">Agregar
+                    <i class="bi bi-person-plus-fill"></i>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+</form>
+    <br>
+    <br>
+    <div>
+
+      <button type="button" (click)="mostrarTotal()">Agregar</button>
+    </div>
+    <br>
+
+    <div class="container">
+      <div class="card">
+          <div class="card-body">
+              <div class="form-check form-check-inline">
+                  <input class="form-check-input" [(ngModel)]="radioButtonSeleccionado" type="radio" name="estado"
+                      id="todos" value="Todos">
+                  <label class="form-check-label" for="todos">Todos({{ obtenerPersona() }})</label>
+              </div>
+              <div class="form-check form-check-inline">
+                  <input class="form-check-input" [(ngModel)]="radioButtonSeleccionado" type="radio" name="estado"
+                      id="Aprobado" value="Aprobado">
+                  <label class="form-check-label" for="Aprobado">Aprobado({{ ObtenerAprobado() }})</label>
+              </div>
+              <div class="form-check form-check-inline">
+                  <input class="form-check-input" [(ngModel)]="radioButtonSeleccionado" type="radio" name="estado"
+                      id="Reprobado" value="Reprobado">
+                  <label class="form-check-label" for="Reprobado">Reprobado({{ ObtenerReprobado() }})</label>
+              </div>
+          </div>
+      </div>
+
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Cedula</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Asignatura</th>
+            <th scope="col">edad</th>
+            <th scope="col">Nota1</th>
+            <th scope="col">Nota2</th>
+            <th scope="col">Promedio</th>
+            <th scope="col">Estado</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let persona of listPersona let i=index">
+
+
+            <tr *ngIf="radioButtonSeleccionado == 'Todos' || radioButtonSeleccionado == persona.estado">
+                <th scope="row">{{i + 1}}</th>
+                <td>{{persona.cedula}}</td>
+                <td>{{persona.nombre}}</td>
+                <td>{{persona.apellido}}</td>
+                <td>{{persona.asignatura}}</td>
+                <td>{{persona.edad}}</td>
+                <td>{{persona.nota1}}</td>
+                <td>{{persona.nota2}}</td>
+                <td>{{persona.promedio}}</td>
+                <td>{{persona.estado}}</td>
+                <td>
+
+                  <span class="cursor text-success" >
+                      <i routerLink="/editarPersona/" class="bi bi-pencil-square"></i>
+                  </span>
+                  <span class="cursor text-danger offset-2" >
+                      <i class="bi bi-file-earmark-x-fill"></i>
+                  </span>
+              </td>
+
+            </tr>
+        </ng-container>
+
+
+
+        </tbody>
+      </table>
+</div>

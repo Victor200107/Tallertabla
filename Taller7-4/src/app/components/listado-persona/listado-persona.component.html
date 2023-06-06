@@ -1,0 +1,66 @@
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" [(ngModel)]="radioButtonSeleccionado" type="radio" name="genero"
+                    id="todos" value="Todos">
+                <label class="form-check-label" for="todos">Todos({{ obtenerTotalPersonas() }})</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" [(ngModel)]="radioButtonSeleccionado" type="radio" name="genero"
+                    id="femenino" value="Masculino">
+                <label class="form-check-label" for="masculino">Masculino({{ obtenerTotalMasculino() }})</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" [(ngModel)]="radioButtonSeleccionado" type="radio" name="genero"
+                    id="masculino" value="Femenino">
+                <label class="form-check-label" for="femenino">Femenino({{ obtenerTotalFemenino() }})</label>
+            </div>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Cedula</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">Fecha de nacimiento</th>
+                <th scope="col">Genero</th>
+
+                <th>
+                    <button routerLink="/registrarPersona/" type="submit" class="btn btn-primary btn-sm">Agregar
+                        <i class="bi bi-person-plus-fill"></i>
+                    </button>
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let persona of listPersona let i=index">
+
+
+                <tr *ngIf="radioButtonSeleccionado == 'Todos' || radioButtonSeleccionado == persona.genero">
+                    <th scope="row">{{i + 1}}</th>
+                    <td>{{persona.cedula}}</td>
+                    <td>{{persona.nombre}}</td>
+                    <td>{{persona.apellido}}</td>
+                    <td>{{persona.fechaNacimiento | date:"dd/MM/yyyy" }}</td>
+                    <td>{{persona.genero}}</td>
+                    <td>
+
+                        <span class="cursor text-success">
+                            <i routerLink="/editarPersona/" class="bi bi-pencil-square"></i>
+                        </span>
+                        <span class="cursor text-danger offset-2">
+                            <i class="bi bi-file-earmark-x-fill"></i>
+                        </span>
+                    </td>
+
+                </tr>
+            </ng-container>
+
+        </tbody>
+    </table>
+
+</div>
